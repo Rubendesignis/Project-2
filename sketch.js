@@ -1,0 +1,29 @@
+setup=_=>{
+  createCanvas(W=1500,W);
+  fill(W,50);
+  Counter=0;
+}
+
+draw=_=>{
+  strokeWeight(2)
+  stroke(random(200,500),random(100,0),random(100,200))
+  Counter++;
+  rect(0,0,W,W);
+  Angle=(PI+sin(Counter*0.02))/7;
+  for(j=0;j<TWO_PI;j+=TWO_PI/8){
+    Tree(5.2,W/2,W/2,j,80);
+  }
+  copy(10,10,W-20,W-20,0,0,W,W);
+}
+
+Tree=(step,x,y,rad,lengs)=>{
+  if(step>0){
+    inf=30-step; 
+    n=noise((x+Counter)/W,(y-Counter)/W)*inf
+    line(x,y,x+=cos(rad)*lengs+cos(n)*inf,y+=sin(rad)*lengs+sin(n)*inf)
+    step--
+    lengs*=0.9
+    Tree(step,x,y,rad+Angle,lengs)
+    Tree(step,x,y,rad-Angle,lengs)
+  }
+}
